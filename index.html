@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main>
+        <div class="sidebar">
+            <a href="#">About Me</a>
+            <a href="#">Projects</a>
+            <a href="#">Skills</a>
+            <a href="#">Contact</a>
+        </div>
+
+        <div class="posts">
+            <div class="aboutme">
+
+            </div>
+
+            <div class="stickynotes">
+                <img src="pog.jpg" onclick="openPopup()" alt="">
+                <img src="" onclick="" alt="">
+                <img src="" onclick="" alt="">
+                <img src="" onclick="" alt="">
+            </div>
+
+            
+            <div class="websiteprojects">
+                <img src="" onclick="" alt="">
+                <img src="" onclick="" alt="">
+            </div>
+        </div>
+      </main>
+      <div class="container">
+                <table class="popup" id="popup">
+                    <tbody>
+
+                    </tbody>
+                </table>
+                <button type="submit" onclick="closePopup()" class="btn">Close</button>
+            </div>
+
+    <script src="javascript.js"></script>
+    <script type="module">
+        fetch("https://wordpress.maddiehansen.dk/wp-json/wp/v2/posts?_embed")
+        .then(res => {
+            return res.json();
+            // parses the data as json - converts json into javascript
+            //otherwise you will only see metadata in the console
+        })
+        .then(data => {
+            console.log(data);
+            data.forEach(post => {
+                //forEach loop
+                const markup = `<img class="artcontent" src="${post.acf.image}">`
+                //makes the image data into an html element
+                document.querySelector("tbody").insertAdjacentHTML('beforeend', markup)
+                //inserts the markup (images) into the html
+            })
+            //
+        })
+        .catch(error => console.log(error));
+
+
+        // .then(function (data) {
+        //     return data.json();
+        // })
+        // .then (function (post) {
+        //     model.initialize(post.acf.image);
+        // }) 
+        // .catch(function(error) {
+        //     console.log("Service is not available" + error);
+        // });
+    </script>
+</body>
+</html>
